@@ -1,0 +1,13 @@
+---
+__packages:
+  RHEL:
+    - zsh
+  SLES:
+    - bash
+
+__os_matrix:
+  RHEL:
+    - RHEL
+    - Rocky
+  SLES:
+    - SLES

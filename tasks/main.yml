@@ -1,0 +1,22 @@
+---
+- name: Get OS details
+  ansible.builtin.setup:
+    gather_subset:
+      - distribution
+
+- name: Set OS type from matrix
+  ansible.builtin.set_fact:
+    __os: >-
+      {%- for entry in (__os_matrix | dict2items) if ansible_distribution in entry.value -%}
+      {{ entry.key }}
+      {%- endfor -%}
+
+- name: Debug
+  ansible.builtin.debug:
+    var: __os
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{  __packages[__os] }}"

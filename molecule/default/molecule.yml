@@ -1,0 +1,22 @@
+---
+lint: |
+  set -e
+  yamllint .
+  ansible-lint -f rich
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: osspefic01
+    image: rockylinux/rockylinux:8
+    pre_build_image: false
+  - name: osspefic02
+    registry:
+      url: registry.suse.com
+    image: bci/bci-base:15.4
+    pre_build_image: false
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
